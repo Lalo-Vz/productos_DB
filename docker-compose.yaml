@@ -1,0 +1,32 @@
+
+# Define los servicios (contenedores) que se van a levantar.
+services:
+  # Servicio de base de datos PostgreSQL
+  db:
+    # Imagen oficial de PostgreSQL versión 18
+    image: postgres:18
+    # Reinicia el contenedor automáticamente si se detiene o falla
+    restart: always
+    # Nombre que tendrá el contenedor en Docker
+    container_name: producto_db
+    # Variables de entorno que usa la imagen de PostgreSQL para configurarse.
+    # Los valores se toman del archivo .env (${NOMBRE_VARIABLE}).
+    environment:
+      # Contraseña del superusuario de la base de datos
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # Usuario principal de la base de datos
+      POSTGRES_USER: ${POSTGRES_USER}
+      # Nombre de la base de datos que se crea al iniciar
+      POSTGRES_DB: ${POSTGRES_DB}
+    # Mapeo de puertos: <puerto_anfitrion>:<puerto_contenedor>.
+    # Expone el puerto 5432 del contenedor hacia el equipo (configurable en .env).
+    ports:
+      - ${PORT}
+    # Volúmenes: persisten los datos para que no se pierdan al apagar el contenedor
+    volumes:
+      # Conecta el volumen 'postgres_data' con el directorio de datos de PostgreSQL
+      - postgres_data:/var/lib/postgresql/data
+
+# Declaración de volúmenes nombrados (guardan los datos de forma persistente)
+volumes:
+  postgres_data:

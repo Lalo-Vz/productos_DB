@@ -1,0 +1,3 @@
+# Archivos .env
+# Ignora el archivo .env para no subir credenciales al repositorio
+.env
