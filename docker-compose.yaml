@@ -24,8 +24,9 @@ services:
       - ${PORT}
     # Volúmenes: persisten los datos para que no se pierdan al apagar el contenedor
     volumes:
-      # Conecta el volumen 'postgres_data' con el directorio de datos de PostgreSQL
-      - postgres_data:/var/lib/postgresql/data
+      # Conecta el volumen 'postgres_data' con el directorio de PostgreSQL.
+      # En 18+ la imagen guarda los datos en /var/lib/postgresql/<major>/docker.
+      - postgres_data:/var/lib/postgresql
 
 # Declaración de volúmenes nombrados (guardan los datos de forma persistente)
 volumes:
